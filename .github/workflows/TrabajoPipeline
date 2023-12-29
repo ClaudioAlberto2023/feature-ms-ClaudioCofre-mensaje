@@ -1,0 +1,54 @@
+name: Pipeline
+
+on:
+  push:
+    branches:
+      - feature-ms-ClaudioCofre-mensaje
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+	
+		  # No se me autorizo a usar mi equipo como administrador para instalaciones de los programas
+		  # Y por carga laboral imposible investigar más al respecto
+		  # Solo revise cada uno de las ayudantias con las cual comprendo mucho más de cuando llegue sobre devOps
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build and Test
+        run: |
+          # Utiliza Maven o Gradle según las necesidades de tu proyecto
+          ./mvnw clean install
+          # Inserta aquí los comandos para ejecutar pruebas unitarias
+          # Asegúrate de que la cobertura sea mayor al 85%
+          if [ "$COVERAGE_PERCENT" -lt 85 ]; then
+            echo "La cobertura es menor al 85%, ajustar umbral"
+            exit 1
+          fi
+      - name: Code Review
+        run: |
+          # Configura SonarCloud y ejecuta análisis
+          # Cambia el umbral hasta que pase OK
+		  # No se me autorizo a usar mi equipo como administrador para instalaciones de los programas
+		  # Y por carga laboral imposible investigar más al respecto
+		  # Solo revise cada uno de las ayudantias con las cual comprendo mucho más de cuando llegue sobre devOps
+      - name: Deploy to Minikube
+        run: |
+          # Inserta aquí los comandos para implementar en Minikube
+		  # No se me autorizo a usar mi equipo como administrador para instalaciones de los programas
+		  # Y por carga laboral imposible investigar más al respecto
+		  # Solo revise cada uno de las ayudantias con las cual comprendo mucho más de cuando llegue sobre devOps
+      - name: Performance Test
+        run: |
+          # Inserta aquí los comandos para pruebas de rendimiento con JMeter u otra herramienta
+		  # No se me autorizo a usar mi equipo como administrador para instalaciones de los programas
+		  # Y por carga laboral imposible investigar más al respecto
+		  # Solo revise cada uno de las ayudantias con las cual comprendo mucho más de cuando llegue sobre devOps
+      - name: Acceptance Test
+        run: |
+          # Inserta aquí los comandos para pruebas de aceptación con Postman
+		  # No se me autorizo a usar mi equipo como administrador para instalaciones de los programas
+		  # Y por carga laboral imposible investigar más al respecto
+		  # Solo revise cada uno de las ayudantias con las cual comprendo mucho más de cuando llegue sobre devOps
