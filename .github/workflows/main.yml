@@ -1,26 +1,43 @@
-name: CI 
+name: Pipeline
 
-on:  
+on:
+  push:
+    branches:
+      - feature-ms-ClaudioCofre-mensaje
 
-  push: 
-    branches: [ "main" ]  
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-  workflow_dispatch: 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-jobs:  
-
-  build:    
-
-    runs-on: ubuntu-latest   
-
-    steps:    
-
-      - uses: actions/checkout@v3
-
-      # Runs a set of commands using the runners shell
-
-      - name: Run a multi-line script
+      - name: Build and Test
         run: |
-          echo "Hola mundooo"
+          # Utiliza Maven o Gradle según las necesidades de tu proyecto
+          ./mvnw clean install
+          # Inserta aquí los comandos para ejecutar pruebas unitarias
+          # Asegúrate de que la cobertura sea mayor al 85%
+          if [ "$COVERAGE_PERCENT" -lt 85 ]; then
+            echo "La cobertura es menor al 85%, ajustar umbral"
+            exit 1
+          fi
 
-          
+      - name: Code Review
+        run: |
+          # Configura SonarCloud y ejecuta análisis
+          # Cambia el umbral hasta que pase OK
+
+      - name: Deploy to Minikube
+        run: |
+          # Inserta aquí los comandos para implementar en Minikube
+
+      - name: Performance Test
+        run: |
+          # Inserta aquí los comandos para pruebas de rendimiento con JMeter u otra herramienta
+
+      - name: Acceptance Test
+        run: |
+          # Inserta aquí los comandos para pruebas de aceptación con Postman
+
